@@ -1,6 +1,6 @@
 [package]
 name = "rectangle2rust"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Rectangle 2 — менеджер окон для macOS, переписанный на Rust"
 

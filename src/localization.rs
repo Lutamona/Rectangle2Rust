@@ -114,11 +114,13 @@ pub fn about_app(app_name: &str) -> String {
 // ---------------------------------------------------------------- алерт обновлений
 
 /// `UpdatesDisabledTitle` (таблица App).
-pub const UPDATES_DISABLED_TITLE: &str = "Автообновление отключено";
+pub const UPDATES_DISABLED_TITLE: &str = "Автообновления нет";
 /// `UpdatesDisabledText` (таблица App) — про эту сборку.
-pub const UPDATES_DISABLED_TEXT: &str = "Это Rectangle 2, переписанная на Rust, — сборка из \
-     исходников. Автообновления у неё нет: официальный релиз Rectangle заменил бы её обычной \
-     версией. Обновить сборку можно командой ./build.sh --install в папке проекта.";
+pub const UPDATES_DISABLED_TEXT: &str = "Новые версии выходят на GitHub. Чтобы обновиться, \
+     скачайте свежую версию со страницы релизов или ещё раз выполните команду установки из \
+     описания проекта. Настройки сохранятся.";
+/// Кнопка алерта обновлений: открыть страницу релизов на GitHub.
+pub const OPEN_RELEASES: &str = "Открыть страницу релизов";
 /// `OK` (таблица App).
 pub const OK: &str = "ОК";
 

@@ -23,13 +23,13 @@ use objc2::rc::Retained;
 use objc2::runtime::{AnyObject, NSObject, NSObjectProtocol, ProtocolObject, Sel};
 use objc2::{define_class, msg_send, sel, MainThreadMarker, MainThreadOnly};
 use objc2_app_kit::{
-    NSAlert, NSApplication, NSControlStateValueOff, NSControlStateValueOn, NSEventModifierFlags,
-    NSMenu, NSMenuDelegate, NSMenuItem, NSScreen, NSStatusBar, NSStatusItem, NSStatusItemBehavior,
-    NSVariableStatusItemLength,
+    NSAlert, NSAlertFirstButtonReturn, NSApplication, NSControlStateValueOff,
+    NSControlStateValueOn, NSEventModifierFlags, NSMenu, NSMenuDelegate, NSMenuItem, NSScreen,
+    NSStatusBar, NSStatusItem, NSStatusItemBehavior, NSVariableStatusItemLength, NSWorkspace,
 };
 use objc2_foundation::{
     ns_string, NSDictionary, NSKeyValueChangeKey, NSKeyValueChangeNewKey, NSKeyValueChangeOldKey,
-    NSKeyValueObservingOptions, NSNumber, NSObjectNSKeyValueObserverRegistration, NSString,
+    NSKeyValueObservingOptions, NSNumber, NSObjectNSKeyValueObserverRegistration, NSString, NSURL,
 };
 
 use crate::actions::{Action, WindowActionCategory};
@@ -375,8 +375,11 @@ pub fn set_authorized(authorized: bool) {
     });
 }
 
+/// Страница последнего релиза: оттуда скачивают новую версию.
+const RELEASES_URL: &str = "https://github.com/Lutamona/Rectangle2Rust/releases/latest";
+
 /// «Проверить обновления…» (`checkForUpdates` оригинала): автообновления нет,
-/// обновление — пересборка.
+/// новая версия — со страницы релизов.
 pub fn show_updates_disabled_alert() {
     let Some(mtm) = MainThreadMarker::new() else {
         return;
@@ -384,10 +387,15 @@ pub fn show_updates_disabled_alert() {
     let alert = NSAlert::new(mtm);
     alert.setMessageText(&NSString::from_str(localization::UPDATES_DISABLED_TITLE));
     alert.setInformativeText(&NSString::from_str(localization::UPDATES_DISABLED_TEXT));
+    alert.addButtonWithTitle(&NSString::from_str(localization::OPEN_RELEASES));
     alert.addButtonWithTitle(&NSString::from_str(localization::OK));
     #[allow(deprecated)]
     NSApplication::sharedApplication(mtm).activateIgnoringOtherApps(true);
-    alert.runModal();
+    if alert.runModal() == NSAlertFirstButtonReturn {
+        if let Some(url) = NSURL::URLWithString(&NSString::from_str(RELEASES_URL)) {
+            NSWorkspace::sharedWorkspace().openURL(&url);
+        }
+    }
 }
 
 // ---------------------------------------------------------------- сборка
