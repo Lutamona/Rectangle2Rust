@@ -1,0 +1,9 @@
+/target/
+/dist/
+.DS_Store
+/tools/swift-oracle/.work/
+/tools/swift-oracle/out/
+/tools/swift-oracle/cases.txt
+/tools/multiwindow-oracle/.work/
+/tools/multiwindow-oracle/out/
+/tools/multiwindow-oracle/cases.txt

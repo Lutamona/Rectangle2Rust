@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+    Шаблон: build.sh подставляет версию (CFBundleShortVersionString — из Cargo.toml,
+    CFBundleVersion — число коммитов), а для dev-варианта (флаг dev у build.sh) ещё
+    bundle id, имя и URL-схему.
+-->
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>Rectangle 2 (Rust)</string>
+    <key>CFBundleDisplayName</key>
+    <string>Rectangle 2 (Rust)</string>
+    <!-- Интерфейс только на русском: так и системные панели AppKit будут русскими. -->
+    <key>CFBundleDevelopmentRegion</key>
+    <string>ru</string>
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>ru</string>
+    </array>
+    <key>CFBundleExecutable</key>
+    <string>rectangle2rust</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundleIdentifier</key>
+    <string>local.rectangle2rust</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <!-- rectangle2rust://execute-action?name=left-half и execute-task (src/url_scheme.rs). -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>local.rectangle2rust</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>rectangle2rust</string>
+            </array>
+        </dict>
+    </array>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.productivity</string>
+    <!--
+        11.0 — столько требует сам бинарь (minos в LC_BUILD_VERSION у arm64-сборки Rust),
+        API в коде старше: самые новые — NSScreen.localizedName (10.15) и
+        application:openURLs: (10.13). Проверено только на текущей macOS.
+        Код с API новее проверяет его наличие во время работы: например, SMAppService
+        (13.0) ищется по имени класса, и на 11–12 автозапуск просто недоступен.
+    -->
+    <key>LSMinimumSystemVersion</key>
+    <string>11.0</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSHumanReadableCopyright</key>
+    <string>Порт Rectangle на Rust, лицензия MIT. Основано на Rectangle, © 2019–2026 Ryan Hanson (Rectangle основан на Spectacle, © 2017 Eric Czarny).</string>
+</dict>
+</plist>

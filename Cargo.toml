@@ -1,0 +1,23 @@
+[package]
+name = "rectangle2rust"
+version = "0.1.0"
+edition = "2021"
+description = "Rectangle 2 — менеджер окон для macOS, переписанный на Rust"
+
+[dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", features = ["NSString", "NSArray", "NSDictionary", "NSValue", "NSGeometry", "NSData", "NSURL", "NSError", "NSNotification", "NSLocale", "NSBundle", "NSUserDefaults", "NSDate", "NSRunLoop", "NSAttributedString"] }
+objc2-app-kit = { version = "0.3", features = ["NSApplication", "NSStatusBar", "NSStatusItem", "NSStatusBarButton", "NSMenu", "NSMenuItem", "NSButton", "NSControl", "NSView", "NSEvent", "NSScreen", "NSRunningApplication", "NSWorkspace", "NSImage", "NSResponder", "NSWindow", "NSGraphics", "NSAlert", "NSAccessibility", "NSAccessibilityProtocols", "NSAccessibilityConstants", "objc2-core-foundation", "NSAttributedString", "NSButtonCell", "NSCell", "NSClipView", "NSColor", "NSFont", "NSImageCell", "NSImageView", "NSLayoutAnchor", "NSLayoutConstraint", "NSScrollView", "NSStackView", "NSText", "NSTextContainer", "NSTextField", "NSTextStorage", "NSTextView", "NSToolbar", "NSToolbarItem", "NSUserInterfaceLayout"] }
+# Слои AppKit-видов (фон и скругления пилюли и списка значка стопки окон).
+objc2-quartz-core = { version = "0.3", default-features = false, features = ["std", "CALayer", "objc2-core-foundation", "objc2-core-graphics"] }
+core-foundation = "0.10"
+core-graphics = "0.24"
+core-foundation-sys = "0.8"
+block2 = "0.6"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
